@@ -1,5 +1,13 @@
+const fs = require('fs');
+
 const requestLogger = (req, res, next)=> {
-  console.log(req.headers);
+  const headers = req.headers;
+  const userAgent = headers['user-agent'];
+
+ 	fs.appendFile('requestDump.log', `At ${new Date()} request, User Agents are => ${userAgent}\n`, (err)=>{
+		if(err) throw err;
+		console.log('data appended successfully');
+	});	
   next();
 }
 
